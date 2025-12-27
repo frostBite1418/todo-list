@@ -3,9 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo-List</title>
 </head>
 <body>
-    
+    <aside>
+        <div class="logo-container side-container">
+            <img src="./format-list-checkbox.svg" alt="list logo">
+            <h1>ToDo</h1>
+        </div>
+        <div class="view-container side-container">
+            <h2>Views</h2>
+            <div class="view-button-container buttons">
+                <div class="button">
+                    <button class="side-button">Today</button>
+                </div>
+                <div class="button">
+                    <button class="side-button">This Week</button>
+                </div>
+                <div class="button">
+                    <button class="side-button">All Time</button>
+                </div>
+                <div class="button">
+                    <button class="side-button">Completed</button>
+                </div>
+            </div>
+        </div>
+        <div class="project-container side-container">
+            <h2>Projects</h2>
+            <div class="project-button-container buttons">
+                <div class="button">
+                    <button class="side-button">School</button>
+                </div>
+                <div class="button">
+                    <button class="side-button">Personal</button>
+                </div>
+                <div class="button">
+                    <button class="side-button">Work</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main>
+        <div class="view">
+            <!-- Add project/view with the correspond count -->
+            <h1>School</h1>
+            <h1>9</h1>
+        </div>
+        <hr>
+        <div class="list-container">
+             <ul>
+                <!-- Add list -->
+                <li>
+                    <div class="task">
+                        <input type="checkbox" name="task1" id="task1" value="task1">
+                        <label for="task1">Get school supplies</label>
+                    </div>
+                    <div class="task-functionality">
+                        <button class="details">Details</button>
+                        <span class="date">Jun 9th</span>
+                        <img class="edit" src="./square-edit-outline.svg" alt="edit">
+                        <img class="delete" src="./delete.svg" alt="delete">
+                    </div>
+                </li>
+                <li>
+                    <div class="task">
+                        <input type="checkbox" name="task2" id="task2" value="task2">
+                        <label for="task1">Pay Tuition</label>
+                    </div>
+                    <div class="task-functionality">
+                        <button class="details">Details</button>
+                        <span class="date">Jun 9th</span>
+                        <img class="edit" src="./square-edit-outline.svg" alt="edit">
+                        <img class="delete" src="./delete.svg" alt="delete">
+                    </div>
+                </li>
+                <li>
+                    <div class="task">
+                        <input type="checkbox" name="task3" id="task3" value="task3">
+                        <label for="task1">Finish scholarship application</label>
+                    </div>
+                    <div class="task-functionality">
+                        <button class="details">Details</button>
+                        <span class="date">Jun 9th</span>
+                        <img class="edit" src="./square-edit-outline.svg" alt="edit">
+                        <img class="delete" src="./delete.svg" alt="delete">
+                    </div>
+                </li>
+             </ul>
+        <div class="add-task-container">
+            <button class="add-task-button">Add Task</button>
+        </div>
+        </div>
+    </main>
 </body>
 </html>

@@ -1,3 +1,130 @@
-body {
-    background-color: rebeccapurple;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --main-color: #f1f1f1;
+    --main-color-two: #FF6F61;
+    --text-color: #000000;
+    --text-color-two: #FFFFFF;
+}
+
+/* Sidebar */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+img {
+    width: 50px;
+}
+
+aside {
+    background-color: var(--main-color);
+    color: var(--text-color);
+    height: 100vh;
+    padding: 20px 50px;
+}
+
+.side-container {
+    margin-bottom: 50px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+/* individual button container */
+.button {
+    margin: 0 0 0 10px;
+    padding: 10px;
+}
+
+.side-button {
+    outline: 0;
+    border: var(--main-color);
+    cursor: pointer;
+    font-size: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+
+/* Main content */
+main {
+    padding: 25px 30px;
+    margin-left: 30px;
+}
+
+.view {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+hr {
+    margin-bottom: 20px;
+}
+
+.add-task-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-task-button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--main-color-two);
+    color: var(--text-color-two);
+    margin: 20px 0;
+}
+
+main ul li {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0 15px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-functionality {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.details {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.date {
+    font-size: 13px;
+}
+
+.edit, .delete {
+    height: 50%;
+    cursor: pointer;
+}
+
+
