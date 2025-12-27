@@ -12,7 +12,7 @@ body {
 
 :root {
     --main-color: #f1f1f1;
-    --main-color-two: #FF6F61;
+    --main-color-two: #007BFF;
     --text-color: #000000;
     --text-color-two: #FFFFFF;
 }
@@ -35,16 +35,16 @@ aside {
 }
 
 .side-container {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
-.buttons {
+aside .buttons {
     display: flex;
     flex-direction: column;
 }
 
 /* individual button container */
-.button {
+aside .button {
     margin: 0 0 0 10px;
     padding: 10px;
 }
@@ -56,6 +56,15 @@ aside {
     font-size: 15px;
     text-align: left;
     width: 100%;
+}
+
+.add-project-button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--main-color-two);
+    color: var(--text-color-two);
+    border: 0;
 }
 
 
@@ -87,6 +96,7 @@ hr {
     background-color: var(--main-color-two);
     color: var(--text-color-two);
     margin: 20px 0;
+    border: 0;
 }
 
 main ul li {
@@ -127,4 +137,15 @@ main ul li {
     cursor: pointer;
 }
 
+/* priority */
+.high {
+    border-left: 5px solid red;
+}
 
+.medium {
+    border-left: 5px solid yellow;
+}
+
+.low {
+    border-left: 5px solid green;
+}
