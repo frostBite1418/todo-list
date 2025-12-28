@@ -1,11 +1,12 @@
 import "./styles.css"
 import { format, compareAsc } from "date-fns";
-import { showDialog, closeDialog, extractDataFromForm } from "./event.js"
+import { showDialog, closeDialog, extractDataFromForm, displayToDoList } from "./event.js"
 
 function toDoListConsole() {
     const toDoListStorage = [
-        {project: "school", title: "Read chapter 10 - physiology of the brain", description: "Must finish urgently", date: "Jun 9", priority: "high"},
-        {project: "school", title: "Apply for the programming varsity tryouts", description: "Review or fail", date: "Jun 9", priority: "high"},
+        {project: "school", title: "Get school supplies", description: "Reminder to buy paper", date: "2025-12-08", priority: "low"},
+        {project: "school", title: "Pay tuition", description: "Review or fail", date: "2025-12-10", priority: "medium"},
+        {project: "school", title: "Finish scholarship application", description: "Get certificate of indigency", date: "2025-12-30", priority: "high"}
     ]
     
     const checkToDoList = () => toDoListStorage.forEach((list) => {
@@ -24,9 +25,12 @@ function toDoListConsole() {
 }
 
 const currentList = new toDoListConsole()
-currentList.checkToDoList()
-currentList.addToDoList("school", "Attending a computer vision workshop", "Learn a thing or two about AI", "June 22", "Medium")
+displayToDoList(currentList.toDoListStorage)
 
+function resetContent() {
+    const parentOfListContainer = document.querySelector("ul")
+    parentOfListContainer.replaceChildren()
+}
 
 // Just buttons
 const addTaskButton = document.getElementById("add-task-button")
@@ -45,6 +49,8 @@ addTaskDialog.addEventListener("submit", (event) => {
     event.preventDefault()
     extractDataFromForm(currentList.toDoListStorage)
     addTaskForm.reset()
+    resetContent()
+    displayToDoList(currentList.toDoListStorage)
     closeDialog(addTaskDialog)
 })
 
