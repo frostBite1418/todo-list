@@ -99,14 +99,14 @@
 
         <!-- dialog for adding projects -->
          <dialog id="add-project-dialog">
-            <form>
+            <form id="add-project-form">
                 <p class="project-title-container">
                     <label for="project-title">Project: </label>
                     <input type="text" name="project-title" id="project-title" autofocus required>
                     
                 </p>
                 <div class="dialog-buttons">
-                    <button id="submit-project" value="submit">Submit</button>
+                    <button type="submit" id="submit-project" value="submit">Submit</button>
                     <button id="close-project" value="cancel">Close</button>
                 </div>
             </form>
@@ -114,7 +114,7 @@
 
         <!-- dialog for adding tasks -->
         <dialog id="add-task-dialog">
-            <form>
+            <form id="add-task-form">
                 <p class="list-title-container">
                     <label for="list-title" autofocus>Title: </label>
                     <input type="text" name="list-title" id="list-title" placeholder="Submitting a requirement" required>
@@ -135,24 +135,30 @@
                         </select>
                     </div>
                 </p>
+                <p class="list-project-container">
+                    <label for="deadline">Deadline: </label>
+                    <div>
+                        <input type="date" name="deadline" id="deadline" required>
+                    </div>
+                </p>
                 <p class="list-priority-container">
                     <label for="list-project">Priority:</label>
                     <div class="priority-radios">
                         <label for="low-priority"></label>
-                            <input type="radio" name="priority" id="low-priority" checked required> Low    
+                            <input type="radio" name="priority" id="low-priority" value="low" checked required> Low    
                         </label>
 
                         <label for="medium-priority">
-                            <input type="radio" name="priority" id="medium-priority" required> Medium
+                            <input type="radio" name="priority" id="medium-priority" value="medium" required> Medium
                         </label>
 
                         <label for="high-priority">
-                            <input type="radio" name="priority" id="high-priority" required> High   
+                            <input type="radio" name="priority" id="high-priority" value="high" required> High   
                         </label>
                     </div>
                 </p>
                 <div class="dialog-buttons">
-                    <button id="submit-task" value="default">Submit</button>
+                    <button type="submit" id="submit-task" value="submit">Submit</button>
                     <button id="close-task" value="cancel" formmethod="dialog">Close</button>
                 </div>
             </form>
