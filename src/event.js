@@ -38,29 +38,48 @@ function deleteList(container, id, currentList) {
 }
 
 function editList(id, currentList) {
-    const addTaskDialog = document.getElementById("add-task-dialog")
+    const addTaskDialog = document.getElementById("add-task-dialog2")
+    const dialogTitle = document.getElementById("list-title2")
+    const dialogDescription = document.getElementById("list-description2")
+    const dialogDeadline = document.getElementById("deadline2")
+    const dialogPriority = document.getElementsByName("priority2")
+    const cancelEditTaskButton = document.getElementById("close-task2")
+    const submitEditTaskButton = document.getElementById("submit-task2")
+    const addTaskForm = document.getElementById("add-task-form2")
+    const addProjectForm = document.getElementById("add-project-form2")
 
     for (let i = currentList.length - 1; i>=0; i--) {
         if (currentList[i].Title === id) {
-            const dialogTitle = document.getElementById("list-title")
-            const dialogDescription = document.getElementById("list-description")
-            const dialogDeadline = document.getElementById("deadline")
-            const dialogPriority = document.getElementsByName("priority")
-
             dialogTitle.value = currentList[i].Title
             dialogDescription.value = currentList[i].Description
-            dialogDeadline.value = currentList[i].Date
-            
+            dialogDeadline.value = currentList[i].Date 
+             
             dialogPriority.forEach((radio) => {
                 if (radio.value === currentList[i].Priority) {
                     radio.checked = true
+                    submitEditTaskButton.addEventListener("click", (event) => {
+                        event.preventDefault()
+                        currentList[i].Title = dialogTitle.value
+                        currentList[i].Description = dialogDescription.value
+                        currentList[i].Date = dialogDeadline.value
+                        
+                        // check priority 
+                        const listPriority = document.querySelector('input[name="priority2"]:checked')
+                        currentList[i].Priority = listPriority.value
+                        resetContent()
+                        displayToDoList(currentList)
+                        closeDialog(addTaskDialog)
+                    }, { once: true })
+                    cancelEditTaskButton.addEventListener("click", (event) => {
+                        event.preventDefault()
+                        closeDialog(addTaskDialog)
+                    })
                 }
             })
-            currentList.splice(i, 1)
         }
     }
     showDialog(addTaskDialog)
-    displayToDoList(currentList)
+
 }
 
 
@@ -134,7 +153,6 @@ function displayToDoList(currentList) {
         editImg.alt = "edit"
         editImg.addEventListener("click", () => {
             editList(item["Title"], currentList)
-            resetContent()
         })
         divContainerFunctionality.appendChild(editImg)
 

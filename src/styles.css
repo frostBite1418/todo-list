@@ -206,7 +206,9 @@ dialog::backdrop {
 #submit-task,
 #close-project,
 #close-task,
-.close-button {
+.close-button,
+#submit-task2,
+#close-task2 {
     padding: 5px 10px;
     cursor: pointer;
 }

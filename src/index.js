@@ -39,6 +39,7 @@ const cancelDialogTaskButton = document.getElementById("close-task")
 const addTaskForm = document.getElementById("add-task-form")
 const addProjectForm = document.getElementById("add-project-form")
 
+
 addTaskButton.addEventListener("click", () => showDialog(addTaskDialog))
 addProjectButton.addEventListener("click", () => showDialog(addProjectDialog))
 
