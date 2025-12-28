@@ -1,6 +1,6 @@
 import "./styles.css"
 import { format, compareAsc } from "date-fns";
-import { showDialog, closeDialog } from "./event.js"
+import { showDialog, closeDialog, extractDataFromForm } from "./event.js"
 
 function toDoListConsole() {
     const toDoListStorage = [
@@ -19,32 +19,13 @@ function toDoListConsole() {
     return {
         checkToDoList,
         addToDoList,
+        toDoListStorage
     }
 }
 
 const currentList = new toDoListConsole()
 currentList.checkToDoList()
 currentList.addToDoList("school", "Attending a computer vision workshop", "Learn a thing or two about AI", "June 22", "Medium")
-
-function extractDataFromForm(currentList) {
-    const listTitle = document.getElementById("list-title")
-    const listDescription = document.getElementById("list-description")
-    const listProject = document.getElementById("project")
-    const listDeadline = document.getElementById("deadline")
-    const listPriority = document.querySelector('input[name="priority"]:checked')
-
-    const listTitleText = listTitle.value
-    const listDescriptionText = listDescription.value
-    const listProjectText = listProject.value
-    const listDeadlineText = listDeadline.value
-    const listPriorityText = listPriority.value
-
-    console.log(listTitleText)
-    console.log(listDescriptionText)
-    console.log(listProjectText)
-    console.log(listDeadlineText)
-    console.log(listPriorityText)
-}
 
 
 // Just buttons
@@ -62,7 +43,7 @@ addProjectButton.addEventListener("click", () => showDialog(addProjectDialog))
 
 addTaskDialog.addEventListener("submit", (event) => {
     event.preventDefault()
-    extractDataFromForm(currentList)
+    extractDataFromForm(currentList.toDoListStorage)
     addTaskForm.reset()
     closeDialog(addTaskDialog)
 })
