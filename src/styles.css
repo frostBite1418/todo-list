@@ -141,15 +141,15 @@ main ul li {
 }
 
 /* priority */
-.high {
+.High {
     border-left: 5px solid var(--high-priority);
 }
 
-.medium {
+.Medium {
     border-left: 5px solid var(--medium-priority);
 }
 
-.low {
+.Low {
     border-left: 5px solid var(--low-priority);
 }
 
@@ -168,6 +168,7 @@ dialog {
 dialog p {
     margin: 7px 0;
     font-size: 15px;
+    line-height: 1.25;
 }
 
 dialog input[type="text"],
@@ -200,7 +201,8 @@ dialog::backdrop {
 #submit-project,
 #submit-task,
 #close-project,
-#close-task {
+#close-task,
+.close-button {
     padding: 5px 10px;
     cursor: pointer;
 }

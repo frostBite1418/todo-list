@@ -22,7 +22,7 @@ function extractDataFromForm(currentList) {
     const listDeadlineText = listDeadline.value
     const listPriorityText = listPriority.value
 
-    const newList = {project: listProjectText, title: listTitleText, description: listDescriptionText, date: listDeadlineText, priority: listPriorityText}
+    const newList = {Project: listProjectText, Title: listTitleText, Description: listDescriptionText, Date: listDeadlineText, Priority: listPriorityText}
     currentList.push(newList)
 }
 
@@ -32,7 +32,7 @@ function displayToDoList(currentList) {
         const parentOfListContainer = document.querySelector("ul")
         
         const listContainer = document.createElement("li")
-        listContainer.classList.add(item["priority"])
+        listContainer.classList.add(item["Priority"])
         parentOfListContainer.appendChild(listContainer)
 
         const divContainerTask = document.createElement("div")
@@ -47,21 +47,46 @@ function displayToDoList(currentList) {
 
         const label = document.createElement("label")
         label.for = item["title"]
-        label.textContent = item["title"]
+        label.textContent = item["Title"]
         divContainerTask.appendChild(label)
         
         const divContainerFunctionality = document.createElement("div")
         divContainerFunctionality.classList.add("task-functionality")
         listContainer.appendChild(divContainerFunctionality)
 
+        // functionality
+        // details dialog - elements
+        const dialogContainer = document.createElement("dialog")
+        document.body.appendChild(dialogContainer)
+        Object.keys(item).forEach(key => {
+            const divTitleContainer = document.createElement("div")
+            dialogContainer.appendChild(divTitleContainer)
+            const detail = document.createElement("p")
+            detail.textContent = key + ": " + item[key]
+            divTitleContainer.appendChild(detail)
+        })
+
+        // details dialog - exit
+        const divButtonContainer = document.createElement("div")
+        dialogContainer.appendChild(divButtonContainer)
+        const exitButton = document.createElement("button")
+        exitButton.classList.add("close-button")
+        exitButton.textContent = "exit"
+        exitButton.addEventListener("click", () => {
+            closeDialog(dialogContainer)
+        })
+        divButtonContainer.appendChild(exitButton)
+
+        // details 
         const details = document.createElement("button")
         details.classList.add("details")
         details.textContent = "Details"
+        details.addEventListener("click", () => showDialog(dialogContainer))
         divContainerFunctionality.appendChild(details)
 
         const date = document.createElement("span")
         date.classList.add("date")
-        date.textContent = item["date"]
+        date.textContent = item["Date"]
         divContainerFunctionality.appendChild(date)
 
         const editImg = document.createElement("img")

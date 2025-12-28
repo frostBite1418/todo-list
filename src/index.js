@@ -4,17 +4,17 @@ import { showDialog, closeDialog, extractDataFromForm, displayToDoList } from ".
 
 function toDoListConsole() {
     const toDoListStorage = [
-        {project: "school", title: "Get school supplies", description: "Reminder to buy paper", date: "2025-12-08", priority: "low"},
-        {project: "school", title: "Pay tuition", description: "Review or fail", date: "2025-12-10", priority: "medium"},
-        {project: "school", title: "Finish scholarship application", description: "Get certificate of indigency", date: "2025-12-30", priority: "high"}
+        {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low"},
+        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2025-12-10", Priority: "Medium"},
+        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-30", Priority: "High"}
     ]
     
     const checkToDoList = () => toDoListStorage.forEach((list) => {
         console.log(list)
     })
 
-    const addToDoList = (project, title, description, date, priority) => {
-        toDoListStorage.push({ project, title, description, date, priority})
+    const addToDoList = (Project, Title, Description, Date, Priority) => {
+        toDoListStorage.push({ Project, Title, Description, Date, Priority})
     }
 
     return {
