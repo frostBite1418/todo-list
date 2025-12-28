@@ -15,6 +15,9 @@ body {
     --main-color-two: #007BFF;
     --text-color: #000000;
     --text-color-two: #FFFFFF;
+    --high-priority: red;
+    --medium-priority: yellow;
+    --low-priority: green;
 }
 
 /* Sidebar */
@@ -58,7 +61,7 @@ aside .button {
     width: 100%;
 }
 
-.add-project-button {
+#add-project-button {
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -89,7 +92,7 @@ hr {
     justify-content: flex-end;
 }
 
-.add-task-button {
+#add-task-button {
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -139,13 +142,63 @@ main ul li {
 
 /* priority */
 .high {
-    border-left: 5px solid red;
+    border-left: 5px solid var(--high-priority);
 }
 
 .medium {
-    border-left: 5px solid yellow;
+    border-left: 5px solid var(--medium-priority);
 }
 
 .low {
-    border-left: 5px solid green;
+    border-left: 5px solid var(--low-priority);
 }
+
+/* dialogs */
+dialog {
+  position: fixed; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  padding: 20px;
+  background: white;
+  width: 20%;
+  border: 1px solid black;
+}
+
+dialog p {
+    margin: 7px 0;
+    font-size: 15px;
+}
+
+dialog input[type="text"], dialog select, textarea {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 5px;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(5px);
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    gap: 20px;
+}
+
+.priority-radios {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+#submit-project,
+#submit-task,
+#close-project,
+#close-task {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+

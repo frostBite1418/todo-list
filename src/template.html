@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="add-project-container">
-            <button class="add-project-button">Add project</button>
+            <button id="add-project-button">Add project</button>
         </div>
     </aside>
     <main>
@@ -71,7 +71,7 @@
                 <li class="medium">
                     <div class="task">
                         <input type="checkbox" name="task2" id="task2" value="task2">
-                        <label for="task1">Pay Tuition</label>
+                        <label for="task1">Pay tuition</label>
                     </div>
                     <div class="task-functionality">
                         <button class="details">Details</button>
@@ -94,8 +94,69 @@
                 </li>
              </ul>
         <div class="add-task-container">
-            <button class="add-task-button">Add Task</button>
+            <button id="add-task-button">Add Task</button>
         </div>
+
+        <!-- dialog for adding projects -->
+         <dialog id="add-project-dialog">
+            <form>
+                <p class="project-title-container">
+                    <label for="project-title">Project: </label>
+                    <input type="text" name="project-title" id="project-title" autofocus required>
+                    
+                </p>
+                <div class="dialog-buttons">
+                    <button id="submit-project" value="submit">Submit</button>
+                    <button id="close-project" value="cancel">Close</button>
+                </div>
+            </form>
+         </dialog>
+
+        <!-- dialog for adding tasks -->
+        <dialog id="add-task-dialog">
+            <form>
+                <p class="list-title-container">
+                    <label for="list-title" autofocus>Title: </label>
+                    <input type="text" name="list-title" id="list-title" placeholder="Submitting a requirement" required>
+                </p>
+                <p class="list-description-container">
+                    <label for="list-description">Description: </label>
+                    <div>
+                        <textarea name="list-description" id="list-description" rows="5"></textarea>
+                    </div>
+                </p>
+                <p class="list-project-container">
+                    <label for="list-project">Project: </label>
+                    <div>
+                        <select name="project" id="project" required>
+                            <option value="school">School</option>
+                            <option value="personal" selected>Personal</option>
+                            <option value="work">Work</option>
+                        </select>
+                    </div>
+                </p>
+                <p class="list-priority-container">
+                    <label for="list-project">Priority:</label>
+                    <div class="priority-radios">
+                        <label for="low-priority"></label>
+                            <input type="radio" name="priority" id="low-priority" checked required> Low    
+                        </label>
+
+                        <label for="medium-priority">
+                            <input type="radio" name="priority" id="medium-priority" required> Medium
+                        </label>
+
+                        <label for="high-priority">
+                            <input type="radio" name="priority" id="high-priority" required> High   
+                        </label>
+                    </div>
+                </p>
+                <div class="dialog-buttons">
+                    <button id="submit-task" value="default">Submit</button>
+                    <button id="close-task" value="cancel" formmethod="dialog">Close</button>
+                </div>
+            </form>
+        </dialog>
         </div>
     </main>
 </body>
