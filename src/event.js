@@ -26,6 +26,43 @@ function extractDataFromForm(currentList) {
     currentList.push(newList)
 }
 
+function deleteList(container, id, currentList) {
+    container.remove()
+
+    // remove the array
+    for (let i = currentList.length - 1; i>=0; i--) {
+        if (currentList[i].Title === id) {
+            currentList.splice(i, 1)
+        }
+    }
+}
+
+function editList(id, currentList) {
+    const addTaskDialog = document.getElementById("add-task-dialog")
+
+    for (let i = currentList.length - 1; i>=0; i--) {
+        if (currentList[i].Title === id) {
+            const dialogTitle = document.getElementById("list-title")
+            const dialogDescription = document.getElementById("list-description")
+            const dialogDeadline = document.getElementById("deadline")
+            const dialogPriority = document.getElementsByName("priority")
+
+            dialogTitle.value = currentList[i].Title
+            dialogDescription.value = currentList[i].Description
+            dialogDeadline.value = currentList[i].Date
+            
+            dialogPriority.forEach((radio) => {
+                if (radio.value === currentList[i].Priority) {
+                    radio.checked = true
+                }
+            })
+            currentList.splice(i, 1)
+        }
+    }
+    showDialog(addTaskDialog)
+    displayToDoList(currentList)
+}
+
 
 function displayToDoList(currentList) {
     currentList.forEach((item) => {
@@ -71,7 +108,7 @@ function displayToDoList(currentList) {
         dialogContainer.appendChild(divButtonContainer)
         const exitButton = document.createElement("button")
         exitButton.classList.add("close-button")
-        exitButton.textContent = "exit"
+        exitButton.textContent = "Exit"
         exitButton.addEventListener("click", () => {
             closeDialog(dialogContainer)
         })
@@ -84,24 +121,39 @@ function displayToDoList(currentList) {
         details.addEventListener("click", () => showDialog(dialogContainer))
         divContainerFunctionality.appendChild(details)
 
+        // date
         const date = document.createElement("span")
         date.classList.add("date")
         date.textContent = item["Date"]
         divContainerFunctionality.appendChild(date)
 
+        // edit
         const editImg = document.createElement("img")
         editImg.classList.add("edit")
         editImg.src = editImage
         editImg.alt = "edit"
+        editImg.addEventListener("click", () => {
+            editList(item["Title"], currentList)
+            resetContent()
+        })
         divContainerFunctionality.appendChild(editImg)
 
+        // delete
         const deleteImg = document.createElement("img")
         deleteImg.classList.add("delete")
         deleteImg.src = deleteImage
+        deleteImg.addEventListener("click", () => {
+            deleteList(listContainer, item["Title"], currentList)
+        })
         deleteImg.alt = "delete"
         divContainerFunctionality.appendChild(deleteImg)
 
     })
 }
 
-export { showDialog, closeDialog, extractDataFromForm, displayToDoList }
+function resetContent() {
+    const parentOfListContainer = document.querySelector("ul")
+    parentOfListContainer.replaceChildren()
+}
+
+export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent }

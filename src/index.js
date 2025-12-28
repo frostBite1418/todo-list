@@ -1,6 +1,6 @@
 import "./styles.css"
 import { format, compareAsc } from "date-fns";
-import { showDialog, closeDialog, extractDataFromForm, displayToDoList } from "./event.js"
+import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent } from "./event.js"
 
 function toDoListConsole() {
     const toDoListStorage = [
@@ -27,10 +27,7 @@ function toDoListConsole() {
 const currentList = new toDoListConsole()
 displayToDoList(currentList.toDoListStorage)
 
-function resetContent() {
-    const parentOfListContainer = document.querySelector("ul")
-    parentOfListContainer.replaceChildren()
-}
+
 
 // Just buttons
 const addTaskButton = document.getElementById("add-task-button")
@@ -48,7 +45,10 @@ addProjectButton.addEventListener("click", () => showDialog(addProjectDialog))
 addTaskDialog.addEventListener("submit", (event) => {
     event.preventDefault()
     extractDataFromForm(currentList.toDoListStorage)
+    // resets answers
     addTaskForm.reset()
+
+    // resets ui
     resetContent()
     displayToDoList(currentList.toDoListStorage)
     closeDialog(addTaskDialog)

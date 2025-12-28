@@ -112,6 +112,10 @@ main ul li {
     justify-content: space-between;
 }
 
+main li:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 .task {
     display: flex;
     justify-content: center;
