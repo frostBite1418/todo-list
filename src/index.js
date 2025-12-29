@@ -52,6 +52,7 @@ function displayProjectList(projectList, allList) {
         const sideButton = document.createElement("button")
         sideButton.textContent = project
         sideButton.classList.add("side-button")
+        sideButton.id = project
         sideButton.addEventListener("click", (event) => {
             const buttonTextContent = event.target.textContent
             const newList = getSpecificProjectList(buttonTextContent, allList)
@@ -151,7 +152,24 @@ function toDoListDisplay() {
 
         // Adds a dynamic on where the task is added
         const viewTitle = document.getElementById("view-title")
-        viewTitle.textContent.click()
+        // resets ui
+        if (viewTitle.textContent === "Completed"){
+            completedButton.click()
+        }
+        else if (viewTitle.textContent === "This Month") {
+            thisMonthButton.click()
+        }
+        else if (viewTitle.textContent === "Today") {
+            todayButton.click()
+        } 
+        else if (viewTitle.textContent === "All Time"){
+            allTimeButton.click()
+        } else {
+            const project = document.getElementById(viewTitle.textContent)
+            console.log(project)
+            project.click()
+        }
+
         closeDialog(addTaskDialog)
     })
 
