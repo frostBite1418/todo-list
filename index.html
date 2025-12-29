@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List</title>
+<script defer src="main.js"></script></head>
+<body>
+    <aside>
+        <div class="logo-container side-container">
+            <img src="4bfe3d460ccbd8aaeef2.svg" alt="list logo">
+            <h1>ToDo</h1>
+        </div>
+        <div class="view-container side-container">
+            <h2>Views</h2>
+            <div class="view-button-container buttons">
+                <div class="button">
+                    <button id="today" class="side-button">Today</button>
+                </div>
+                <div class="button">
+                    <button id="this-month" class="side-button">This Month</button>
+                </div>
+                <div class="button">
+                    <button id="all-time" class="side-button">All Time</button>
+                </div>
+                <div class="button">
+                    <button id="completed" class="side-button">Completed</button>
+                </div>
+            </div>
+        </div>
+        <div class="project-container side-container">
+            <h2>Projects</h2>
+            <div class="project-button-container buttons">
+            <!-- add projects -->
+            </div>
+        </div>
+        <div class="add-project-container">
+            <button id="add-project-button">Add project</button>
+        </div>
+    </aside>
+    <main>
+        <div class="view">
+            <!-- Add project/view with the correspond count -->
+            <h1 id="view-title"></h1>
+            <h1 id="view-number"></h1>
+        </div>
+        <hr>
+        <div class="list-container">
+             <ul>
+                <!-- Add list -->
+             </ul>
+        <div class="add-task-container">
+            <button id="add-task-button">Add Task</button>
+        </div>
+
+        <!-- dialog for adding projects -->
+         <dialog id="add-project-dialog">
+            <form id="add-project-form">
+                <p class="project-title-container">
+                    <label for="project-title">Project: </label>
+                    <input type="text" name="project-title" id="project-title" autofocus required>
+                </p>
+                <div class="dialog-buttons">
+                    <button type="submit" id="submit-project" value="submit">Submit</button>
+                    <button id="close-project" value="cancel">Close</button>
+                </div>
+            </form>
+         </dialog>
+
+        <!-- dialog for adding tasks -->
+        <dialog id="add-task-dialog">
+            <form id="add-task-form">
+                <p class="list-title-container">
+                    <label for="list-title" autofocus>Title: </label>
+                    <input type="text" name="list-title" id="list-title" placeholder="Submitting a requirement" required>
+                </p>
+                <p class="list-description-container">
+                    <label for="list-description">Description: </label>
+                    <div>
+                        <textarea name="list-description" id="list-description" rows="5"></textarea>
+                    </div>
+                </p>
+                <p class="list-project-container">
+                    <label for="list-project">Project: </label>
+                    <div>
+                        <select name="project" id="project" required>
+                            <!-- add options -->
+                        </select>
+                    </div>
+                </p>
+                <p class="list-project-container">
+                    <label for="deadline">Deadline: </label>
+                    <div>
+                        <input type="date" name="deadline" id="deadline" required>
+                    </div>
+                </p>
+                <p class="list-priority-container">
+                    <label for="list-project">Priority:</label>
+                    <div class="priority-radios">
+                        <label for="low-priority"></label>
+                            <input type="radio" name="priority" id="low-priority" value="Low" checked required> Low    
+                        </label>
+
+                        <label for="medium-priority">
+                            <input type="radio" name="priority" id="medium-priority" value="Medium" required> Medium
+                        </label>
+
+                        <label for="high-priority">
+                            <input type="radio" name="priority" id="high-priority" value="High" required> High   
+                        </label>
+                    </div>
+                </p>
+                <div class="dialog-buttons">
+                    <button type="submit" id="submit-task" value="submit">Submit</button>
+                    <button id="close-task" value="cancel" formmethod="dialog">Close</button>
+                </div>
+            </form>
+        </dialog>
+
+        <!-- dialog for editing tasks -->
+    <dialog id="add-task-dialog2">
+            <form id="add-task-form2">
+                <p class="list-title-container">
+                    <label for="list-title" autofocus>Title: </label>
+                    <input type="text" name="list-title" id="list-title2" placeholder="Submitting a requirement" required>
+                </p>
+                <p class="list-description-container">
+                    <label for="list-description">Description: </label>
+                    <div>
+                        <textarea name="list-description" id="list-description2" rows="5"></textarea>
+                    </div>
+                </p>
+                <p class="list-project-container">
+                    <label for="list-project">Project: </label>
+                    <div>
+                        <select name="project" id="project2" required>
+                            <option value="school">School</option>
+                            <option value="personal" selected>Personal</option>
+                            <option value="work">Work</option>
+                        </select>
+                    </div>
+                </p>
+                <p class="list-project-container">
+                    <label for="deadline2">Deadline: </label>
+                    <div>
+                        <input type="date" name="deadline" id="deadline2" required>
+                    </div>
+                </p>
+                <p class="list-priority-container">
+                    <label for="list-project">Priority:</label>
+                    <div class="priority-radios">
+                        <label for="low-priority"></label>
+                            <input type="radio" name="priority2" id="low-priority2" value="Low" checked required> Low    
+                        </label>
+
+                        <label for="medium-priority">
+                            <input type="radio" name="priority2" id="medium-priority2" value="Medium" required> Medium
+                        </label>
+
+                        <label for="high-priority">
+                            <input type="radio" name="priority2" id="high-priority2" value="High" required> High   
+                        </label>
+                    </div>
+                </p>
+                <div class="dialog-buttons">
+                    <button type="submit" id="submit-task2" value="submit">Submit</button>
+                    <button id="close-task2" value="cancel" formmethod="dialog">Close</button>
+                </div>
+            </form>
+        </dialog>
+        </div>
+    </main>
+</body>
+</html>
