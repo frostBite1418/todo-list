@@ -162,6 +162,7 @@ function displayToDoList(currentList) {
         deleteImg.src = deleteImage
         deleteImg.addEventListener("click", () => {
             deleteList(listContainer, item["Title"], currentList)
+            changeViewNumber(currentList.length)
         })
         deleteImg.alt = "delete"
         divContainerFunctionality.appendChild(deleteImg)
@@ -174,4 +175,16 @@ function resetContent() {
     parentOfListContainer.replaceChildren()
 }
 
-export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent }
+function changeViewDisplay(buttonTextContent, toDoListStorage) {
+    const viewTitle = document.getElementById("view-title")
+    viewTitle.textContent = buttonTextContent
+
+    changeViewNumber(toDoListStorage.length)
+}
+
+function changeViewNumber(number) {
+    const viewNumber = document.getElementById("view-number")
+    viewNumber.textContent = number
+}
+
+export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber }
