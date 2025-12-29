@@ -175,11 +175,11 @@ function resetContent() {
     parentOfListContainer.replaceChildren()
 }
 
-function changeViewDisplay(buttonTextContent, toDoListStorage) {
+function changeViewDisplay(buttonTextContent, list) {
     const viewTitle = document.getElementById("view-title")
     viewTitle.textContent = buttonTextContent
 
-    changeViewNumber(toDoListStorage.length)
+    changeViewNumber(list.length)
 }
 
 function changeViewNumber(number) {

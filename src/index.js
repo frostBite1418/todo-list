@@ -7,7 +7,7 @@ function toDoListConsole() {
     const toDoListStorage = [
         {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low"},
         {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2025-12-10", Priority: "Medium"},
-        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-30", Priority: "High"}
+        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-29", Priority: "High"}
     ]
     
     const checkToDoList = () => toDoListStorage.forEach((list) => {
@@ -23,6 +23,25 @@ function toDoListConsole() {
         addToDoList,
         toDoListStorage
     }
+}
+
+function getToday() {
+    const today = new Date()
+    return format(today.toLocaleDateString(), "yyyy-MM-dd")
+}
+
+function getList(constraint, list) {
+    let newList = []
+    list.forEach((item) => {
+        if (item["Date"] == constraint) {
+            newList.push(item)
+        }
+    })
+    return newList
+}
+
+function displayToDoListWithConstraint() {
+
 }
 
 
@@ -42,6 +61,15 @@ function toDoListDisplay() {
         const buttonTextContent = event.target.textContent
         changeViewDisplay(buttonTextContent, currentList.toDoListStorage)
         displayToDoList(currentList.toDoListStorage)
+    })
+
+    todayButton.addEventListener("click", (event) => {
+        const today = getToday()
+        const buttonTextContent = event.target.textContent
+        const newList = getList(today, currentList.toDoListStorage)
+        changeViewDisplay(buttonTextContent, newList)
+        resetContent()
+        displayToDoList(newList)
     })
 
 
