@@ -5,7 +5,7 @@ import { changeViewNumber, changeViewDisplay, getToday, getMonth, getList, getMo
 function toDoListConsole() {
     const toDoListStorage = [
         {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low", Completed: "No"},
-        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2025-12-10", Priority: "Medium", Completed: "No"},
+        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2026-11-10", Priority: "Medium", Completed: "No"},
         {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-29", Priority: "High", Completed: "No"}
     ]
     
@@ -36,37 +36,53 @@ function toDoListDisplay() {
     const allTimeButton = document.getElementById("all-time")
     const completedButton = document.getElementById("completed")
 
-    allTimeButton.addEventListener("click", (event) => {
+    function allTimeFunctionality(event) {
         resetContent()
         const buttonTextContent = event.target.textContent
         changeViewDisplay(buttonTextContent, currentList.toDoListStorage)
         displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
-    })
+    }
 
-    todayButton.addEventListener("click", (event) => {
+    function todayFunctionality(event) {
         const today = getToday()
         const buttonTextContent = event.target.textContent
         const newList = getList(today, currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
         displayToDoList(newList, currentList.toDoListStorage)
-    })
+    }
 
-    thisMonthButton.addEventListener("click", (event) => {
+    function thisMonthFunctionality(event) {
         const month = getMonth()
         const buttonTextContent = event.target.textContent
         const newList = getMonthList(month, currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
         displayToDoList(newList, currentList.toDoListStorage)
-    })
+    }
 
-    completedButton.addEventListener("click", (event) => {
+    function completedFunctionality(event) {
         const buttonTextContent = event.target.textContent
         const newList = getCompletedList("Yes", currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
         displayToDoList(newList, currentList.toDoListStorage)
+    }
+
+    allTimeButton.addEventListener("click", (event) => {
+        allTimeFunctionality(event)
+    })
+
+    todayButton.addEventListener("click", (event) => {
+       todayFunctionality(event)
+    })
+
+    thisMonthButton.addEventListener("click", (event) => {
+        thisMonthFunctionality(event)
+    })
+
+    completedButton.addEventListener("click", (event) => {
+       completedFunctionality(event)
     })
 
 
@@ -90,11 +106,22 @@ function toDoListDisplay() {
         // resets answers
         addTaskForm.reset()
 
+        // Adds a dynamic on where the task is added
+        const viewTitle = document.getElementById("view-title")
         // resets ui
-        resetContent()
-        displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
+        if (viewTitle.textContent === "Today"){
+            todayButton.click()
+        }
+        else if (viewTitle.textContent === "This Month") {
+            thisMonthButton.click()
+        }
+        else if (viewTitle.textContent === "All Time") {
+            allTimeButton.click()
+        } else {
+            completedButton.click()
+        }
+
         closeDialog(addTaskDialog)
-        changeViewNumber(currentList.toDoListStorage.length)
     })
 
     addProjectDialog.addEventListener("submit", (event) => {
