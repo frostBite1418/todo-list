@@ -1,12 +1,12 @@
 import "./styles.css"
 import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent } from "./event.js"
-import { changeViewNumber, changeViewDisplay, getToday, getMonth, getList, getMonthList, getCompletedList } from "./event.js"
+import { changeViewDisplay, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm } from "./event.js"
 
 function toDoListConsole() {
     const toDoListStorage = [
         {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low", Completed: "No"},
-        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2026-11-10", Priority: "Medium", Completed: "No"},
-        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-29", Priority: "High", Completed: "No"}
+        {Project: "Personal", Title: "Study competitive programming", Description: "For tryout", Date: "2026-10-10", Priority: "Medium", Completed: "No"},
+        {Project: "Work", Title: "Finish making blog website", Description: "Clients needs it by the end of this week", Date: "2025-12-29", Priority: "High", Completed: "No"}
     ]
     
     const checkToDoList = () => toDoListStorage.forEach((list) => {
@@ -24,6 +24,47 @@ function toDoListConsole() {
     }
 }
 
+function getSpecificProjectList(constraint, currentList) {
+    const specificProjectList = []
+    currentList.forEach((item) => {
+        if (item["Project"] == constraint) {
+            specificProjectList.push(item)
+        }
+    })
+
+    return specificProjectList
+}
+
+function resetDisplayProject() {
+    const viewContainer = document.querySelector(".project-button-container")
+    viewContainer.replaceChildren() 
+}
+
+function displayProjectList(projectList, allList) {
+    resetDisplayProject()
+    const viewContainer = document.querySelector(".project-button-container")
+
+    projectList.forEach((project) => {
+        const sideButtonDiv = document.createElement("div")
+        sideButtonDiv.classList.add("button")
+
+        // length of each project/view
+        const sideButton = document.createElement("button")
+        sideButton.textContent = project
+        sideButton.classList.add("side-button")
+        sideButton.addEventListener("click", (event) => {
+            const buttonTextContent = event.target.textContent
+            const newList = getSpecificProjectList(buttonTextContent, allList)
+            changeViewDisplay(buttonTextContent, newList)
+            resetContent()
+            displayToDoList(newList, allList)
+        })
+        sideButtonDiv.appendChild(sideButton)
+
+        viewContainer.appendChild(sideButtonDiv)
+    })
+}
+
 
 function toDoListDisplay() {
     const currentList = new toDoListConsole()
@@ -35,7 +76,9 @@ function toDoListDisplay() {
     const thisMonthButton = document.getElementById("this-month")
     const allTimeButton = document.getElementById("all-time")
     const completedButton = document.getElementById("completed")
+    const projectList = ["School", "Personal", "Work"]
 
+    displayProjectList(projectList, currentList.toDoListStorage)
     function allTimeFunctionality(event) {
         resetContent()
         const buttonTextContent = event.target.textContent
@@ -108,24 +151,15 @@ function toDoListDisplay() {
 
         // Adds a dynamic on where the task is added
         const viewTitle = document.getElementById("view-title")
-        // resets ui
-        if (viewTitle.textContent === "Today"){
-            todayButton.click()
-        }
-        else if (viewTitle.textContent === "This Month") {
-            thisMonthButton.click()
-        }
-        else if (viewTitle.textContent === "All Time") {
-            allTimeButton.click()
-        } else {
-            completedButton.click()
-        }
-
+        viewTitle.textContent.click()
         closeDialog(addTaskDialog)
     })
 
     addProjectDialog.addEventListener("submit", (event) => {
         event.preventDefault()
+        const newProject = extractDataFromProjectForm()
+        projectList.push(newProject)
+        displayProjectList(projectList, currentList.toDoListStorage)
         addProjectForm.reset()
         closeDialog(addProjectDialog)
     })

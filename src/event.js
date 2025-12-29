@@ -53,6 +53,11 @@ function getCompletedList(constraint, list) {
     return newList
 }
 
+function extractDataFromProjectForm() {
+    const projectTitle = document.getElementById("project-title")
+    return projectTitle.value
+}
+
 
 function extractDataFromForm(currentList) {
     const listTitle = document.getElementById("list-title")
@@ -95,8 +100,6 @@ function editList(id, currentList) {
     const dialogPriority = document.getElementsByName("priority2")
     const cancelEditTaskButton = document.getElementById("close-task2")
     const submitEditTaskButton = document.getElementById("submit-task2")
-    const addTaskForm = document.getElementById("add-task-form2")
-    const addProjectForm = document.getElementById("add-project-form2")
 
     for (let i = currentList.length - 1; i>=0; i--) {
         if (currentList[i].Title === id) {
@@ -248,4 +251,4 @@ function changeViewNumber(number) {
     viewNumber.textContent = number
 }
 
-export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber, getToday, getMonth, getList, getMonthList, getCompletedList }
+export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm }
