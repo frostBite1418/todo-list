@@ -28,7 +28,7 @@ function toDoListConsole() {
 function toDoListDisplay() {
     const currentList = new toDoListConsole()
     changeViewDisplay("All Time", currentList.toDoListStorage)
-    displayToDoList(currentList.toDoListStorage)
+    displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
 
     // Buttons for viewing
     const todayButton = document.getElementById("today")
@@ -40,7 +40,7 @@ function toDoListDisplay() {
         resetContent()
         const buttonTextContent = event.target.textContent
         changeViewDisplay(buttonTextContent, currentList.toDoListStorage)
-        displayToDoList(currentList.toDoListStorage)
+        displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
     })
 
     todayButton.addEventListener("click", (event) => {
@@ -49,7 +49,7 @@ function toDoListDisplay() {
         const newList = getList(today, currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
-        displayToDoList(newList)
+        displayToDoList(newList, currentList.toDoListStorage)
     })
 
     thisMonthButton.addEventListener("click", (event) => {
@@ -58,7 +58,7 @@ function toDoListDisplay() {
         const newList = getMonthList(month, currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
-        displayToDoList(newList)
+        displayToDoList(newList, currentList.toDoListStorage)
     })
 
     completedButton.addEventListener("click", (event) => {
@@ -66,7 +66,7 @@ function toDoListDisplay() {
         const newList = getCompletedList("Yes", currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
-        displayToDoList(newList)
+        displayToDoList(newList, currentList.toDoListStorage)
     })
 
 
@@ -92,7 +92,7 @@ function toDoListDisplay() {
 
         // resets ui
         resetContent()
-        displayToDoList(currentList.toDoListStorage)
+        displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
         closeDialog(addTaskDialog)
         changeViewNumber(currentList.toDoListStorage.length)
     })

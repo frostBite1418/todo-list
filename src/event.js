@@ -71,13 +71,18 @@ function extractDataFromForm(currentList) {
     currentList.push(newList)
 }
 
-function deleteList(container, id, currentList) {
+function deleteList(container, id, currentList, referencedList) {
     container.remove()
 
     // remove the array
     for (let i = currentList.length - 1; i>=0; i--) {
         if (currentList[i].Title === id) {
             currentList.splice(i, 1)
+        }
+    }
+    for (let i = referencedList.length - 1; i>=0; i--) {
+        if (referencedList[i].Title === id) {
+            referencedList.splice(i, 1)
         }
     }
 }
@@ -112,7 +117,7 @@ function editList(id, currentList) {
                         const listPriority = document.querySelector('input[name="priority2"]:checked')
                         currentList[i].Priority = listPriority.value
                         resetContent()
-                        displayToDoList(currentList)
+                        displayToDoList(currentList, [])
                         closeDialog(addTaskDialog)
                     }, { once: true })
                     cancelEditTaskButton.addEventListener("click", (event) => {
@@ -128,7 +133,7 @@ function editList(id, currentList) {
 }
 
 
-function displayToDoList(currentList) {
+function displayToDoList(currentList, referencedList) {
     currentList.forEach((item) => {
         const parentOfListContainer = document.querySelector("ul")
         
@@ -217,7 +222,7 @@ function displayToDoList(currentList) {
         deleteImg.classList.add("delete")
         deleteImg.src = deleteImage
         deleteImg.addEventListener("click", () => {
-            deleteList(listContainer, item["Title"], currentList)
+            deleteList(listContainer, item["Title"], currentList, referencedList)
             changeViewNumber(currentList.length)
         })
         deleteImg.alt = "delete"
