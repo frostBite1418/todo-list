@@ -1,9 +1,9 @@
 import "./styles.css"
-import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent } from "./event.js"
-import { changeViewDisplay, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm } from "./event.js"
+import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, getSpecificProjectList, resetDisplayProject, storeLocalStorage } from "./event.js"
+import { changeViewDisplay, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm, useLocalStorage, addLocalStorage} from "./event.js"
 
 function toDoListConsole() {
-    const toDoListStorage = [
+    let toDoListStorage = [
         {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low", Completed: "No"},
         {Project: "Personal", Title: "Study competitive programming", Description: "For tryout", Date: "2026-10-10", Priority: "Medium", Completed: "No"},
         {Project: "Work", Title: "Finish making blog website", Description: "Clients needs it by the end of this week", Date: "2025-12-29", Priority: "High", Completed: "No"}
@@ -22,22 +22,6 @@ function toDoListConsole() {
         addToDoList,
         toDoListStorage
     }
-}
-
-function getSpecificProjectList(constraint, currentList) {
-    const specificProjectList = []
-    currentList.forEach((item) => {
-        if (item["Project"] == constraint) {
-            specificProjectList.push(item)
-        }
-    })
-
-    return specificProjectList
-}
-
-function resetDisplayProject() {
-    const viewContainer = document.querySelector(".project-button-container")
-    viewContainer.replaceChildren() 
 }
 
 function displayProjectList(projectList, allList) {
@@ -83,7 +67,7 @@ function toDoListDisplay() {
     const thisMonthButton = document.getElementById("this-month")
     const allTimeButton = document.getElementById("all-time")
     const completedButton = document.getElementById("completed")
-    const projectList = ["School", "Personal", "Work"]
+    let projectList = ["School", "Personal", "Work"]
 
     displayProjectList(projectList, currentList.toDoListStorage)
     function allTimeFunctionality(event) {
@@ -153,6 +137,7 @@ function toDoListDisplay() {
     addTaskDialog.addEventListener("submit", (event) => {
         event.preventDefault()
         extractDataFromForm(currentList.toDoListStorage)
+        storeLocalStorage("currentList", currentList.toDoListStorage)
         // resets answers
         addTaskForm.reset()
 
@@ -172,7 +157,6 @@ function toDoListDisplay() {
             allTimeButton.click()
         } else {
             const project = document.getElementById(viewTitle.textContent)
-            console.log(project)
             project.click()
         }
 
@@ -183,6 +167,7 @@ function toDoListDisplay() {
         event.preventDefault()
         const newProject = extractDataFromProjectForm()
         projectList.push(newProject)
+        addLocalStorage(newProject)
         displayProjectList(projectList, currentList.toDoListStorage)
         addProjectForm.reset()
         closeDialog(addProjectDialog)
@@ -197,6 +182,30 @@ function toDoListDisplay() {
         event.preventDefault()
         closeDialog(addProjectDialog)
     })
+
+    window.addEventListener("load", () => {
+        const userDataProject = useLocalStorage("project")
+        const userDataList = useLocalStorage("currentList")
+
+        if (userDataProject !== null) {
+            projectList = JSON.parse(userDataProject)
+        } else {
+            storeLocalStorage("project", projectList)
+        }
+
+        if (userDataList !== null) {
+            currentList.toDoListStorage = JSON.parse(userDataList)
+        } else {
+            storeLocalStorage("currentList", currentList.toDoListStorage)
+        }
+
+        resetContent()
+        changeViewDisplay("All Time", currentList.toDoListStorage)
+        displayToDoList(currentList.toDoListStorage, currentList.toDoListStorage)
+
+        displayProjectList(projectList, currentList.toDoListStorage)
+    })
+
 }
 
 

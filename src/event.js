@@ -226,6 +226,7 @@ function displayToDoList(currentList, referencedList) {
         deleteImg.src = deleteImage
         deleteImg.addEventListener("click", () => {
             deleteList(listContainer, item["Title"], currentList, referencedList)
+            storeLocalStorage("currentList", currentList)
             changeViewNumber(currentList.length)
         })
         deleteImg.alt = "delete"
@@ -251,4 +252,34 @@ function changeViewNumber(number) {
     viewNumber.textContent = number
 }
 
-export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm }
+function getSpecificProjectList(constraint, currentList) {
+    const specificProjectList = []
+    currentList.forEach((item) => {
+        if (item["Project"] == constraint) {
+            specificProjectList.push(item)
+        }
+    })
+
+    return specificProjectList
+}
+
+function resetDisplayProject() {
+    const viewContainer = document.querySelector(".project-button-container")
+    viewContainer.replaceChildren() 
+}
+
+function storeLocalStorage(key, object) {
+    localStorage.setItem(key, JSON.stringify(object))
+}
+
+function useLocalStorage(key) {
+    return localStorage.getItem(key)
+}
+
+function addLocalStorage(newProject) {
+    const currentProject = JSON.parse(useLocalStorage("project"))
+    currentProject.push(newProject)
+    storeLocalStorage("project", currentProject)
+}
+
+export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber, getToday, getMonth, getList, getMonthList, getCompletedList, extractDataFromProjectForm, getSpecificProjectList, resetDisplayProject, storeLocalStorage, useLocalStorage, addLocalStorage }
