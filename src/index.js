@@ -1,5 +1,5 @@
 import "./styles.css"
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent } from "./event.js"
 import { changeViewNumber, changeViewDisplay } from "./event.js"
 
@@ -30,6 +30,14 @@ function getToday() {
     return format(today.toLocaleDateString(), "yyyy-MM-dd")
 }
 
+function getMonth() {
+    const month = new Date()
+    if ((month.getMonth() + 1) >= 10)
+        return month.getMonth() + 1
+    else
+        return ("0" + (month.getMonth() + 1))
+}
+
 function getList(constraint, list) {
     let newList = []
     list.forEach((item) => {
@@ -40,8 +48,14 @@ function getList(constraint, list) {
     return newList
 }
 
-function displayToDoListWithConstraint() {
-
+function getMonthList(constraint, list) {
+    let newList = []
+    list.forEach((item) => {
+        if (format(item["Date"], "MM") == constraint) {
+            newList.push(item)
+        }
+    })
+    return newList
 }
 
 
@@ -52,7 +66,7 @@ function toDoListDisplay() {
 
     // Buttons for viewing
     const todayButton = document.getElementById("today")
-    const thisWeekButton = document.getElementById("this-week")
+    const thisMonthButton = document.getElementById("this-month")
     const allTimeButton = document.getElementById("all-time")
     const completedButton = document.getElementById("completed")
 
@@ -67,6 +81,15 @@ function toDoListDisplay() {
         const today = getToday()
         const buttonTextContent = event.target.textContent
         const newList = getList(today, currentList.toDoListStorage)
+        changeViewDisplay(buttonTextContent, newList)
+        resetContent()
+        displayToDoList(newList)
+    })
+
+    thisMonthButton.addEventListener("click", (event) => {
+        const month = getMonth()
+        const buttonTextContent = event.target.textContent
+        const newList = getMonthList(month, currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
         displayToDoList(newList)
