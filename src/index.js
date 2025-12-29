@@ -43,7 +43,8 @@ function resetDisplayProject() {
 function displayProjectList(projectList, allList) {
     resetDisplayProject()
     const viewContainer = document.querySelector(".project-button-container")
-
+    const optionContainer = document.getElementById("project")
+    optionContainer.replaceChildren()
     projectList.forEach((project) => {
         const sideButtonDiv = document.createElement("div")
         sideButtonDiv.classList.add("button")
@@ -53,6 +54,11 @@ function displayProjectList(projectList, allList) {
         sideButton.textContent = project
         sideButton.classList.add("side-button")
         sideButton.id = project
+
+        const option = document.createElement("option")
+        option.value = project
+        option.textContent = project
+        optionContainer.appendChild(option)
         sideButton.addEventListener("click", (event) => {
             const buttonTextContent = event.target.textContent
             const newList = getSpecificProjectList(buttonTextContent, allList)
