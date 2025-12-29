@@ -1,5 +1,6 @@
 import deleteImage from "./delete.svg"
 import editImage from "./square-edit-outline.svg"
+import { format } from "date-fns"
 
 function showDialog(dialog){
     dialog.showModal()
@@ -8,6 +9,50 @@ function showDialog(dialog){
 function closeDialog(dialog){
     dialog.close()
 }
+
+function getToday() {
+    const today = new Date()
+    return format(today.toLocaleDateString(), "yyyy-MM-dd")
+}
+
+function getMonth() {
+    const month = new Date()
+    if ((month.getMonth() + 1) >= 10)
+        return month.getMonth() + 1
+    else
+        return ("0" + (month.getMonth() + 1))
+}
+
+function getList(constraint, list) {
+    let newList = []
+    list.forEach((item) => {
+        if (item["Date"] == constraint) {
+            newList.push(item)
+        }
+    })
+    return newList
+}
+
+function getMonthList(constraint, list) {
+    let newList = []
+    list.forEach((item) => {
+        if (format(item["Date"], "MM") == constraint) {
+            newList.push(item)
+        }
+    })
+    return newList
+}
+
+function getCompletedList(constraint, list) {
+    let newList = []
+    list.forEach((item) => {
+        if (item["Completed"] == constraint) {
+            newList.push(item)
+        }
+    })
+    return newList
+}
+
 
 function extractDataFromForm(currentList) {
     const listTitle = document.getElementById("list-title")
@@ -22,7 +67,7 @@ function extractDataFromForm(currentList) {
     const listDeadlineText = listDeadline.value
     const listPriorityText = listPriority.value
 
-    const newList = {Project: listProjectText, Title: listTitleText, Description: listDescriptionText, Date: listDeadlineText, Priority: listPriorityText}
+    const newList = {Project: listProjectText, Title: listTitleText, Description: listDescriptionText, Date: listDeadlineText, Priority: listPriorityText, Completed: "No"}
     currentList.push(newList)
 }
 
@@ -99,6 +144,10 @@ function displayToDoList(currentList) {
         checkBox.type = "checkbox"
         checkBox.name = item["title"]
         checkBox.id = item["title"]
+        checkBox.addEventListener("change", () => {
+            item["Completed"] = (item["Completed"] === "No") ? "Yes" : "No"
+            console.log(item["Completed"])
+        })
         divContainerTask.appendChild(checkBox)
 
         const label = document.createElement("label")
@@ -187,4 +236,4 @@ function changeViewNumber(number) {
     viewNumber.textContent = number
 }
 
-export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber }
+export { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent, changeViewDisplay, changeViewNumber, getToday, getMonth, getList, getMonthList, getCompletedList }

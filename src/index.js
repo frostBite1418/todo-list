@@ -1,13 +1,12 @@
 import "./styles.css"
-import { format } from "date-fns";
 import { showDialog, closeDialog, extractDataFromForm, displayToDoList, resetContent } from "./event.js"
-import { changeViewNumber, changeViewDisplay } from "./event.js"
+import { changeViewNumber, changeViewDisplay, getToday, getMonth, getList, getMonthList, getCompletedList } from "./event.js"
 
 function toDoListConsole() {
     const toDoListStorage = [
-        {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low"},
-        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2025-12-10", Priority: "Medium"},
-        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-29", Priority: "High"}
+        {Project: "School", Title: "Get school supplies", Description: "Reminder to buy paper", Date: "2025-12-08", Priority: "Low", Completed: "No"},
+        {Project: "School", Title: "Pay tuition", Description: "Review or fail", Date: "2025-12-10", Priority: "Medium", Completed: "No"},
+        {Project: "School", Title: "Finish scholarship application", Description: "Get certificate of indigency", Date: "2025-12-29", Priority: "High", Completed: "No"}
     ]
     
     const checkToDoList = () => toDoListStorage.forEach((list) => {
@@ -23,39 +22,6 @@ function toDoListConsole() {
         addToDoList,
         toDoListStorage
     }
-}
-
-function getToday() {
-    const today = new Date()
-    return format(today.toLocaleDateString(), "yyyy-MM-dd")
-}
-
-function getMonth() {
-    const month = new Date()
-    if ((month.getMonth() + 1) >= 10)
-        return month.getMonth() + 1
-    else
-        return ("0" + (month.getMonth() + 1))
-}
-
-function getList(constraint, list) {
-    let newList = []
-    list.forEach((item) => {
-        if (item["Date"] == constraint) {
-            newList.push(item)
-        }
-    })
-    return newList
-}
-
-function getMonthList(constraint, list) {
-    let newList = []
-    list.forEach((item) => {
-        if (format(item["Date"], "MM") == constraint) {
-            newList.push(item)
-        }
-    })
-    return newList
 }
 
 
@@ -90,6 +56,14 @@ function toDoListDisplay() {
         const month = getMonth()
         const buttonTextContent = event.target.textContent
         const newList = getMonthList(month, currentList.toDoListStorage)
+        changeViewDisplay(buttonTextContent, newList)
+        resetContent()
+        displayToDoList(newList)
+    })
+
+    completedButton.addEventListener("click", (event) => {
+        const buttonTextContent = event.target.textContent
+        const newList = getCompletedList("Yes", currentList.toDoListStorage)
         changeViewDisplay(buttonTextContent, newList)
         resetContent()
         displayToDoList(newList)
