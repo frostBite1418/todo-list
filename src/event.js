@@ -146,7 +146,10 @@ function displayToDoList(currentList) {
         checkBox.id = item["title"]
         checkBox.addEventListener("change", () => {
             item["Completed"] = (item["Completed"] === "No") ? "Yes" : "No"
-            console.log(item["Completed"])
+            if (item["Completed"] === "Yes") 
+                label.style.textDecoration = "line-through"
+            else
+                label.style.textDecoration = "none"
         })
         divContainerTask.appendChild(checkBox)
 
@@ -157,6 +160,10 @@ function displayToDoList(currentList) {
         
         const divContainerFunctionality = document.createElement("div")
         divContainerFunctionality.classList.add("task-functionality")
+        if (item["Completed"] === "Yes") {
+            checkBox.checked = true
+            label.style.textDecoration = "line-through"
+        }
         listContainer.appendChild(divContainerFunctionality)
 
         // functionality
